@@ -57,7 +57,7 @@ do
 	then
 		echo -e "No second year in this meet\t$y" >> MoM
 	else
-		m=$(cat /home/$x/$y"_mom")
+		m=$(cat /home/$x/$y"_mom" 2> /dev/null)
 		echo -e "$x\t\t$y\t\t\t\t$m\n" >> MoM
 	fi
 done
