@@ -78,7 +78,7 @@ betweenDates(){
         else
                 echo Sorry, wrong input.
         fi
-
+}
 #Function executed when no parameter is passed
 allAbsentees(){
 	absentDates(){
