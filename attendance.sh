@@ -46,20 +46,38 @@ betweenDates(){
 		rm /home/Jay_Jay/tempNames.txt
 	}
 
-	#Getting the indices of these dates in meetdates array
-	x=$(echo ${meetDates[@]/$date1//} | cut -f 1 -d/ | wc -w | tr -d ' ')
-	y=$(echo ${meetDates[@]/$date2//} | cut -f 1 -d/ | wc -w | tr -d ' ')
-	if [[ $x -eq $exceed || $y -eq $exceed ]] #checking whether meet was there on the date passed as command line paramter
-	then
-		echo Sorry, wrong input for one of the dates.
-	else
-		lim=$[$y+1]
-		for (( z=$x; z<$lim; z++ ))
-		do
-	 		getAbsentees ${meetDates[$z]}
-		done
-	fi
-}
+	if expr "$date1" ">=" "${meetDates[0]}" > /dev/null && expr "$date2" "<=" "${meetDates[$exceed]}" >/dev/null
+        then
+                for (( z=0; z<$exceed; z++ ))
+                do
+                        if expr "${meetDates[$z]}" ">=" "$date1" > /dev/null
+                        then
+                                x=$z
+                                break
+                        fi
+                done
+                for (( z=0; z<$exceed; z++ ))
+                do
+                        if expr "${meetDates[$z]}" ">=" "$date2" > /dev/null
+                        then
+                                if expr "${meetDates[$z]}" "=" "$date2" > /dev/null
+                                then
+                                        y=$z
+                                        break
+                                else
+                                        y=$[z-1]
+                                        break
+                                fi
+                        fi
+                done
+                lim=$[$y+1]
+                for (( z=$x; z<$lim; z++ ))
+                do
+                        getAbsentees ${meetDates[$z]}
+                done
+        else
+                echo Sorry, wrong input.
+        fi
 
 #Function executed when no parameter is passed
 allAbsentees(){
