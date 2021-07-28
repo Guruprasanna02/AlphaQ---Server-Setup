@@ -25,6 +25,7 @@ do
         meetDates+=($p)
 done < /home/Jay_Jay/tempDates.txt
 exceed=${#meetDates[@]}
+exceed=$[exceed-1]
 
 #Function executed when two dates are passed as parameters
 betweenDates(){
