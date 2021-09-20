@@ -1,1 +1,1 @@
-# Delta-Sysad-Task-1
+# Basic server-setup for an organization.
