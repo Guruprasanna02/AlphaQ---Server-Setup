@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  scripts :
+    build:
+        context: .
+    image: mom2db
+    volumes: 
+        - data:/root/
+volumes: 
+  data:
